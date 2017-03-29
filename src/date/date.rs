@@ -121,15 +121,12 @@ pub fn uumain(args: Vec<String>) -> i32 {
         let file: File;
 
         // Get the current time, either in the local time zone or UTC.
-        let now: DateTime<FixedOffset> = match settings.utc {
-            true => {
-                let now = UTC::now();
-                now.with_timezone(&now.offset().fix())
-            }
-            false => {
-                let now = Local::now();
-                now.with_timezone(now.offset())
-            }
+        let now: DateTime<FixedOffset> = if settings.utc {
+            let now = UTC::now();
+            now.with_timezone(&now.offset().fix())
+        } else {
+            let now = Local::now();
+            now.with_timezone(now.offset())
         };
 
         /// Parse a `String` into a `DateTime`.
