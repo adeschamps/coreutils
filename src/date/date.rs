@@ -12,12 +12,13 @@
 extern crate chrono;
 #[macro_use]
 extern crate clap;
+#[macro_use]
 extern crate uucore;
 
 use chrono::{DateTime, FixedOffset, Offset, Local};
 use chrono::offset::utc::UTC;
 use std::fs::File;
-use std::io::{BufRead, BufReader};
+use std::io::{BufRead, BufReader, Write};
 use std::path::PathBuf;
 
 // Options
@@ -166,7 +167,7 @@ pub fn uumain(args: Vec<String>) -> i32 {
                     println!("{}", formatted);
                 }
                 Err((input, _err)) => {
-                    println!("date: invalid date '{}'", input);
+                    show_error!("date: invalid date '{}'", input);
                 }
             }
         }
